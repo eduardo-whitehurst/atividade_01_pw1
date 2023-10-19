@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use('/api/users', userRoutes);
-app.use('/api/technologies', technologyRoutes);
+app.use('/users', userRoutes);
+app.use('/technologies', technologyRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

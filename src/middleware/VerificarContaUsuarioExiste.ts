@@ -20,4 +20,4 @@ function verificarContaUsuarioExiste(
   next();
 }
 
-export { verificarContaUsuarioExiste };
+export { verificarContaUsuarioExiste, listaUsuarios };

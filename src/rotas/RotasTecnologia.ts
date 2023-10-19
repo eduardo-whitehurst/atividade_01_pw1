@@ -7,14 +7,14 @@ import { v4 as uuidv4 } from 'uuid';
 const router: Router = express.Router();
 
 // Rota para criar uma nova tecnologia para um usuário
-router.post('/technologies', verificarContaUsuarioExiste, (req: Request, res: Response) => {
-    const { title, deadline } = req.body;
+router.post('/', verificarContaUsuarioExiste, (req: Request, res: Response) => {
+    const { titulo, estudar_ate } = req.body;
     const user: Usuario = req.user as Usuario; // Recupere o usuário do middleware
     const newTechnology: Tecnologia = {
       id: uuidv4(), // Gere um ID como UUID
-      titulo: title,
+      titulo: titulo,
       estudada: false, // Inicialize 'studied' como false
-      estudar_ate: new Date(deadline),
+      estudar_ate: new Date(estudar_ate),
       criado_em: new Date(),
     };
   
@@ -26,7 +26,7 @@ router.post('/technologies', verificarContaUsuarioExiste, (req: Request, res: Re
   });
 
 // Rota para listar todas as tecnologias de um usuário
-router.get('/technologies', verificarContaUsuarioExiste, (req: Request, res: Response) => {
+router.get('/', verificarContaUsuarioExiste, (req: Request, res: Response) => {
   const user: Usuario = req.user as Usuario; // Recupere o usuário do middleware
 
   // Retorna a lista de tecnologias do usuário
@@ -34,8 +34,8 @@ router.get('/technologies', verificarContaUsuarioExiste, (req: Request, res: Res
 });
 
 // Rota para atualizar uma tecnologia de um usuário
-router.put('/technologies/:id', verificarContaUsuarioExiste, (req: Request, res: Response) => {
-  const { title, deadline } = req.body;
+router.put('/:id', verificarContaUsuarioExiste, (req: Request, res: Response) => {
+  const { titulo, estudar_ate } = req.body;
   const user: Usuario = req.user as Usuario; // Recupere o usuário do middleware
   const technologyId: string = req.params.id;
 
@@ -46,15 +46,15 @@ router.put('/technologies/:id', verificarContaUsuarioExiste, (req: Request, res:
   }
 
   // Atualize as propriedades da tecnologia
-  technology.titulo = title;
-  technology.estudar_ate = deadline;
+  technology.titulo = titulo;
+  technology.estudar_ate = estudar_ate;
 
   // Retorne a tecnologia atualizada
   res.status(200).json(technology);
 });
 
 // Rota para marcar uma tecnologia como estudada
-router.patch('/technologies/:id/studied', verificarContaUsuarioExiste, (req: Request, res: Response) => {
+router.patch('/:id/studied', verificarContaUsuarioExiste, (req: Request, res: Response) => {
   const user: Usuario = req.user as Usuario; // Recupere o usuário do middleware
   const technologyId: string = req.params.id;
 
@@ -72,7 +72,7 @@ router.patch('/technologies/:id/studied', verificarContaUsuarioExiste, (req: Req
 });
 
 // Rota para excluir uma tecnologia de um usuário
-router.delete('/technologies/:id', verificarContaUsuarioExiste, (req: Request, res: Response) => {
+router.delete('/:id', verificarContaUsuarioExiste, (req: Request, res: Response) => {
   const user: Usuario = req.user as Usuario; // Recupere o usuário do middleware
   const technologyId: string = req.params.id;
 
